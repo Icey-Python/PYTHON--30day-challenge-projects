@@ -1,13 +1,15 @@
 Here are the 30 intermediate Python project ideas:
 
 1. Web Scraper - Scrape data from websites into structured format 
-## ESPN - SPORTS FIXTURE  
+## ESPN - SPORTS FIXTURE 
+## done - to do:
+[x] to add a prediction status 
 
 2. Weather App - Get weather data for a location and display forecast
 
 3. Automation Script - Automate common tasks like file management
 
-4. Web App - Build a web app with backend code and deploy on Heroku
+4. Web App - Build a web app with backend code and deploy on Heroku             
 
 5. Desktop App - Make a SQLite-powered desktop app with GUI using Tkinter
 
