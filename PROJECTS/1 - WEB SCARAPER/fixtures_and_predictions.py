@@ -14,32 +14,43 @@ def get_categories():
     category_obj = {}
     for category in categories_raw:
         category_name = category.find('a').get_text()
-        category_obj |= {f"{category_name}":{}}
+        category_obj |= {f"{category_name}":[]}
         categories[0].update(category_obj)
 
 def get_in_category_fixtures():
     get_categories()
-    category_fixtures_raw = full_data_raw.find_all('tr')
+    category_fixtures_raw = full_data_raw.find_all('tr')[2:]
     working_category = ""
     for fixture in category_fixtures_raw:
         if fixture.get_text() in categories[0].keys():
             working_category = fixture.get_text()
         else:
-            category_data_raw = fixture.find_all('td',{'class':'standardbunka'})
-            category_data =[]
-            for category_team in category_data_raw:
-                category_data.append(category_team.text)
-            
+            category_data_raw = fixture.find_all('td')
+            team_data_structured = []
+            for team_data in category_data_raw:
+                team_data_structured.append(team_data.get_text())
+            try:
+                home_team = team_data_structured[1]
+                away_team= team_data_structured[2]
+                final_score = team_data_structured[3:6]
+                percentages ={
+                    "home":team_data_structured[6],
+                    "draw":team_data_structured[7],
+                    "away":team_data_structured[8],
+                }
+                tip=team_data_structured[9]
+                category_fixtures_obj={}
+                category_fixtures_obj|={
+                    "home_team":home_team,
+                    "away_team":away_team,
+                    "final_score":' '.join(final_score),
+                    "percentages":percentages,
+                    "tip":tip
+                }
+                (categories[0][working_category]).append(category_fixtures_obj)
+            except IndexError as e:
+                print(f"Error: {e}")
+                pass
+    return categories
 
-            # away_team= fixture.find_all('td',{'class':'standardbunka'})[2].get_text()
-            # category_fixtures_obj={}
-            # category_fixtures_obj|={
-            #     "home_team":home_team,
-            #     "away_team":away_team
-            # }
-            # print(category_fixtures_obj)
-
-def structure_data():
-    pass
-
-get_in_category_fixtures()
+print(get_in_category_fixtures())
