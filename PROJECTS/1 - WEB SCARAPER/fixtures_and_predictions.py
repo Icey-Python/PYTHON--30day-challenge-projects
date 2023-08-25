@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import json
 
 url = "https://www.vitibet.com/index.php?clanek=quicktips&sekce=fotbal&lang=en"
 resp = requests.get(url)
@@ -53,4 +54,5 @@ def get_in_category_fixtures():
                 pass
     return categories
 
-print(get_in_category_fixtures())
+with open("fixtures_and_predictions.json","w") as file:
+   json.dump(get_in_category_fixtures(),file,indent=4)

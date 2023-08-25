@@ -1,0 +1,6 @@
+# Ignore PyCache directories
+__pycache__/
+
+# Ignore keys file
+PROJECTS/2- WEATHER APP/keys.py
+PROJECTS/2- WEATHER APP/fixtures_and_predictions.json
